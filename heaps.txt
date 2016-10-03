@@ -1,0 +1,60 @@
+Heaps
+
+Priority Queue:
+- People waiting to get on an airplane have priority groups
+- 6 -> 4 -> 1 (how do we add a 1?)
+- Somehow priorities are weighted (could be an int in a large range, or a float)
+
+Heap:
+- #peek: shows us highest priority item (min or max) -- 0(1)
+- #extract: pops off highest priority item O(log(n))
+- #insert: add an element O(log(n))
+- Binary tree structure
+
+Tree properties for a Heap:
+- A heap must be a complete tree: Adding top to bottom, left to right, working towards perfect triangle shape
+- Full tree: perfect triangle shape
+- Min heap: prioritize low values, max heap: prioritize max values
+- Heap property: parent node must be smaller or equal to its children
+- Peek: just look at the root O(1)
+- Inserting is hard: add a node in the right place, swap "heapify" accordingly
+- Extract: swap root with last child node, pull off last child, swap with smallest / largest child
+
+Observations:
+- There is no relationship between parents except that they are bigger/smaller than their parent
+
+Implementation (note that math is integer divisio n):
+- We use an array, that's why we need a complete tree: [1,2,3,4,7,4,5]
+- Find parent: (i - 1) / 2
+- Find children: 2i + 1 && 2i + 1
+- #peek:
+  - heap[0]
+- #insert(el):
+   heap << el
+   while(parent && child < parent)
+    swap
+   end
+- #extract:
+  swap(last_child, root)
+    el = heap.pop
+    parent = heap[0]
+    parent_idx = 0
+    while(parent > child)
+      parent_idx = child_idx
+      swap(parent, child)
+    end
+  end
+
+Heap Sort:
+  - Want to do it in place (constant space)
+    Until end
+      move partition
+      heapify
+    end
+
+    Until beginning
+      swap first and last before partition
+      move partition left
+      heapify down
+    end
+  - Heap sort is not a stable sort: there is not guarantee that things within a priority group

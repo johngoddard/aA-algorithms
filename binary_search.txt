@@ -1,0 +1,29 @@
+Binary search tree 
+
+Definition: 
+-Root node
+-Every node can have left + right children
+-Every node in left subtree is < root, every node in right subtree > root
+
+In-order traversal: 
+1. In-order traversal of left subtree if left subtree
+2. Record/print root
+3. In-order traversal of right subtree if right subtree
+
+Find: 
+- Find the first instance via in-order traversal and return true. Return false if dead end
+
+Insert: 
+- Navigate until you find spot and delete
+
+Delete O(depth): 
+-Easy: Deleting a node with no children 
+-Medium:  Delete a node with 1 child
+	- Connect parent & child 
+-Hard: Delete a node with 2 children 
+	- Must be greater/less than parent
+	- Less than everything in right subtree 
+	 
+Balanced (everything works in log(n) time): 
+1. depth(left) = depth(right) +/- 1
+2. left tree balanced && right tree balanced

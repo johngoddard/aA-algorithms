@@ -1,0 +1,9 @@
+Algorithm:
+- Pick a pivot
+- Partition
+- Recurse on right + left
+
+How do we do this in place?
+- Just pass in the starting indices
+- Pick the first element
+- Go through the others, put them on the left or right

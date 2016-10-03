@@ -1,0 +1,30 @@
+Architecture lecture, pt 2 (9/27)
+
+Scale out write heavy loads - Sharding:
+- Early set up has a leader and a follower
+- New proposal: put half the data on 2 machines
+- Now half the reads and half the writes go to each machine
+- There are now essentially 2 databases (usually, split by primary key (hashed))
+- Fine if you only access by the primary key; makes this an ideal solution
+- Cross shard transaction: modifies some data in all sharded DBs
+- This is problematic because it doesn't guarantee a linear history, adds complexity to your application
+
+Transaction example:
+- TX1: Update row 123; Update Row 456
+- TX2: Read row 456; read row 123
+- TXNS split into 1A/B & 2A/B
+- Now theres a race at the db level (e.g. machine 1: 1A then 2A, machine 2: 2B then 1B)
+- This could cause a corruption!
+
+Downsides of sharding:
+- Need to do this manually, client code needs to be aware of this
+- Maintenance heavy -- how do we add another machine?
+
+Alternative:
+- Cassandra handles most of this for you
+- Distributed map of keys and values
+- Setting up SQL schema: logically identifying how to structure your information, accurately represent reality.
+- Cassandra: ask what you want to get out your data, make it a single row / key query
+  - Harder to perform joins, so you essentially need to store responses to queries
+  - Denormalizing: folding multiple tables into one
+  - This is necessary if you do 10s of thousands of writes per second

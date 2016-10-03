@@ -1,0 +1,59 @@
+Big Omega:
+- Lower bound on time complexity. E.g. It will do no better than this
+
+Big Theta:
+- Tight bound:
+- Worst case is same as best case -- Big Omega == Big O
+
+Big O:
+- Formal:
+  f(n) = O(g(n)) =>
+  there exists f(n) <= c * g(n) for all n after some N
+
+Recurrence relations:
+- T(n): generalization of runtime
+  - Work per level * levels
+-Binary search:
+  Work done each level: T(n) = O(1) + T(n/2) => 0(1)
+  Levels = log(n)
+  Total = 0(1) * log(n) = log(n)
+-Merge sort:
+  T(n) = t(n/2) + t(n/2) + O(n)
+  Work per level: O(n)
+  Levels: log(n)
+  Total: n*log(n)
+-Subsets:
+  T(n) = T(n-1) + 2^(n-1) * 2 = T(n - 1) + 2^n
+
+
+def subsets(arr)
+  return [[]] if arr.length == 0
+  last = arr.last
+  subs = subsets(arr[0..-2])
+  subs.map{|sub| sub << last}.concat(subs)
+end
+
+Master Theorem:
+- A way to solve recurrence relations of a given form
+- Given form: T(n) = aT(n/b) + f(n^c)
+- f(n^c): work done per step
+- a: number of recursive calls
+- b: amount n is divided by per recursive call
+
+T(n) =
+- if f(n ^ c) = O(logb(a)) where c < logb(a) => Theta(n^(logb(a)))
+- if f(n ^ c) = theta(n^c * log(n)^k) where c = logb(a) -> theta(n^c * log(n)^k+1)
+  - k >= 0
+- if f(n ^ c) = omega(n^c) where c > logb(a) -> theta(n^c)
+
+Merge sort master:
+ - a: 2
+ - b: 2
+ - logba: 1
+ - c: 1
+ - k: 0 (?)
+ - => c = 1 = logba -> theta(n^1 * log(n)^(k+1))
+
+k explanation:
+- 'just something you have to remember'
+- Wiki: "if it is true for some k"
